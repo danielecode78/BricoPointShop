@@ -33,9 +33,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin:
-      // "http://localhost:5173",
-      "https://bricopointshop.onrender.com",
+    origin: ["http://localhost:5173", "https://bricopointshop.onrender.com"],
     credentials: true,
   })
 );
@@ -87,6 +85,8 @@ const safeSanitize = (req, res, next) => {
 app.use(safeSanitize);
 
 // -------------------- Express Session / Connect Mongo
+app.set("trust proxy", 1);
+
 const session = require("express-session");
 const connectMongo = require("connect-mongo");
 const timeLogin = 1000 * 60 * 60 * 24 * 7;
@@ -102,8 +102,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      domain: "bricopointshop.onrender.com",
+      sameSite: process.env.NODE_ENV === "production" ? "lax" : "strict",
       maxAge: timeLogin,
     },
   })
@@ -205,6 +204,14 @@ function scheduleOrder(id) {
 }
 
 // -------------------- Routes
+app.use((req, res, next) => {
+  console.log("Headers:", req.headers);
+  console.log("Session ID:", req.sessionID);
+  console.log("Session:", req.session);
+  console.log("User:", req.user);
+  console.log("Authenticated:", req.isAuthenticated());
+  next();
+});
 
 app.get("/loggedIn", (req, res) => {
   if (req.isAuthenticated()) {
