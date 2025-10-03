@@ -99,7 +99,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "strict" : "none",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "none",
       maxAge: timeLogin,
     },
   })
@@ -116,7 +116,7 @@ passport.deserializeUser(User.deserializeUser());
 
 // -------------------- IsLoggedIn
 const isLoggedIn = (req, res, next) => {
-  console.log("Sessione:", req.session);
+  console.log("Sessione:", req.session ? "Attiva" : "Non attiva");
   console.log("Utente:", req.user.username);
 
   if (!req.isAuthenticated()) {
