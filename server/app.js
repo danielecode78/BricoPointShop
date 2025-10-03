@@ -31,7 +31,7 @@ const Order = require("./models/order");
 // -------------------- Cors
 const cors = require("cors");
 
-if (!process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV !== "production") {
   app.use(
     cors({
       origin: "http://localhost:5173",
@@ -55,7 +55,7 @@ app.use(
         imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
-        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
         objectSrc: ["'none'"],
         upgradeInsecureRequests: [],
       },
