@@ -107,7 +107,7 @@ export default function Home() {
               <CardActionArea onClick={() => navigate(`/${product._id}`)}>
                 <Box
                   sx={{
-                    height: { xs: "20vh", sm: "38vh", md: "36vh" },
+                    height: { xs: "250px", sm: "400px" },
                     display: "flex",
                     flexDirection: "column",
                   }}

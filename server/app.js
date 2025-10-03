@@ -119,9 +119,6 @@ passport.deserializeUser(User.deserializeUser());
 
 // -------------------- IsLoggedIn
 const isLoggedIn = (req, res, next) => {
-  console.log("Sessione:", req.session ? "Attiva" : "Non attiva");
-  console.log("Utente:", req.user.username);
-
   if (!req.isAuthenticated()) {
     const err = new Error("Devi essere loggato per accedere");
     err.statusCode = 401;
@@ -204,15 +201,6 @@ function scheduleOrder(id) {
 }
 
 // -------------------- Routes
-app.use((req, res, next) => {
-  console.log("Headers:", req.headers);
-  console.log("Session ID:", req.sessionID);
-  console.log("Session:", req.session);
-  console.log("User:", req.user);
-  console.log("Authenticated:", req.isAuthenticated());
-  next();
-});
-
 app.get("/loggedIn", (req, res) => {
   if (req.isAuthenticated()) {
     res.json({ user: req.user });
