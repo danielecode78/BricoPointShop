@@ -44,7 +44,14 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
+        defaultSrc: ["'self'"],
+        connectSrc: ["'self'", "http://localhost:3000"],
         imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+        scriptSrc: ["'self'", "'unsafe-inline'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: [],
       },
     },
   })
