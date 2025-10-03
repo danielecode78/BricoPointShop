@@ -33,7 +33,7 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173", "https://bricopointshop.onrender.com"],
     credentials: true,
   })
 );
@@ -99,7 +99,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
+      sameSite: process.env.NODE_ENV === "production" ? "strict" : "none",
       maxAge: timeLogin,
     },
   })
@@ -116,6 +116,9 @@ passport.deserializeUser(User.deserializeUser());
 
 // -------------------- IsLoggedIn
 const isLoggedIn = (req, res, next) => {
+  console.log("Sessione:", req.session);
+  console.log("Utente:", req.user.username);
+
   if (!req.isAuthenticated()) {
     const err = new Error("Devi essere loggato per accedere");
     err.statusCode = 401;
