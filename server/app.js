@@ -31,12 +31,14 @@ const Order = require("./models/order");
 // -------------------- Cors
 const cors = require("cors");
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+if (!process.env.NODE_ENV === "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
+}
 
 // // -------------------- Helmet
 const helmet = require("helmet");
@@ -45,7 +47,11 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        connectSrc: ["'self'", "http://localhost:3000"],
+        connectSrc: [
+          "'self'",
+          "http://localhost:3000",
+          "http://localhost:5173",
+        ],
         imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
