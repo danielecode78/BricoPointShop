@@ -33,7 +33,9 @@ const cors = require("cors");
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://bricopointshop.onrender.com"],
+    origin:
+      // "http://localhost:5173",
+      "https://bricopointshop.onrender.com",
     credentials: true,
   })
 );
@@ -49,6 +51,7 @@ app.use(
           "'self'",
           "http://localhost:3000",
           "http://localhost:5173",
+          "https://bricopointshop.onrender.com",
         ],
         imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
@@ -99,7 +102,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "none",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
       maxAge: timeLogin,
     },
   })
