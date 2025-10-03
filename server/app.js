@@ -99,7 +99,7 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: process.env.NODE_ENV === "production" ? "strict" : "none",
+      sameSite: "none",
       maxAge: timeLogin,
     },
   })
@@ -117,7 +117,9 @@ passport.deserializeUser(User.deserializeUser());
 // -------------------- IsLoggedIn
 const isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
-    return res.status(401).json({ error: "Devi essere loggato per accedere" });
+    const err = new Error("Devi essere loggato per accedere");
+    err.statusCode = 401;
+    return next(err);
   }
   next();
 };
