@@ -55,6 +55,7 @@ export default function ImageDropzone({ onFilesChange }) {
           <Grid key={index}>
             <Box sx={{ position: "relative" }}>
               <img
+                crossOrigin="anonymous"
                 src={file.preview}
                 alt={`preview-${index}`}
                 style={{

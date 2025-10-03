@@ -51,7 +51,7 @@ app.use(
           "http://localhost:5173",
           "https://bricopointshop.onrender.com",
         ],
-        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+        imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
