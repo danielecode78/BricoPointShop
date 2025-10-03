@@ -384,23 +384,27 @@ app.post(
 //   })
 // );
 
-app.post("/login", authLimiter, (req, res) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (!user) {
-      let field;
-      return res.status(401).json({
-        errors: [{ field: "form", message: "Credenziali di accesso errate" }],
-      });
-    }
+app.post(
+  "/login",
+  // authLimiter,
+  (req, res) => {
+    passport.authenticate("local", (err, user, info) => {
+      if (!user) {
+        let field;
+        return res.status(401).json({
+          errors: [{ field: "form", message: "Credenziali di accesso errate" }],
+        });
+      }
 
-    req.login(user, (err) => {
-      if (err) return res.status(500).json({ error: "Errore login" });
-      req.session.save(() => {
-        res.json({ user });
+      req.login(user, (err) => {
+        if (err) return res.status(500).json({ error: "Errore login" });
+        req.session.save(() => {
+          res.json({ user });
+        });
       });
-    });
-  })(req, res);
-});
+    })(req, res);
+  }
+);
 
 app.post("/logout", (req, res, next) => {
   req.logout(function (err) {
