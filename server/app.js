@@ -29,16 +29,16 @@ const User = require("./models/user");
 const Order = require("./models/order");
 
 // -------------------- Cors
-// const cors = require("cors");
+const cors = require("cors");
 
-// if (process.env.NODE_ENV !== "production") {
-//   app.use(
-//     cors({
-//       origin: "http://localhost:5173",
-//       credentials: true,
-//     })
-//   );
-// }
+if (process.env.NODE_ENV !== "production") {
+  app.use(
+    cors({
+      origin: "http://localhost:5173",
+      credentials: true,
+    })
+  );
+}
 
 // // -------------------- Helmet
 const helmet = require("helmet");

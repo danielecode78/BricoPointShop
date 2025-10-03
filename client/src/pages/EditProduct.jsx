@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Box,
   Paper,
@@ -50,9 +50,9 @@ export default function EditProduct() {
     const axiosData = async () => {
       try {
         const [categoriesRes, brandsRes, productRes] = await Promise.all([
-          axios.get("http://localhost:3000/categories"),
-          axios.get("http://localhost:3000/brands"),
-          axios.get(`http://localhost:3000/product/${id}`),
+          apiClient.get("/categories"),
+          apiClient.get("/brands"),
+          apiClient.get(`/product/${id}`),
         ]);
 
         setCategories(categoriesRes.data);
@@ -113,8 +113,8 @@ export default function EditProduct() {
       formData.append("images", file);
     });
 
-    await axios
-      .put(`http://localhost:3000/product/${id}/edit`, formData, {
+    await apiClient
+      .put(`/product/${id}/edit`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

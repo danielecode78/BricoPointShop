@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Typography,
   Grid,
@@ -22,7 +22,7 @@ export default function Cart() {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/cart");
+        const res = await apiClient.get("/cart");
         setUserCart(res.data);
       } catch (err) {
         const dataError = err.response?.data;
@@ -135,11 +135,9 @@ export default function Cart() {
                         quantity: e.target.value,
                       };
                       setUserCart(updatedCart);
-                      axios
-                        .patch("http://localhost:3000/cart", updatedCart)
-                        .then((res) => {
-                          setUser(res.data);
-                        });
+                      apiClient.patch("/cart", updatedCart).then((res) => {
+                        setUser(res.data);
+                      });
                     }}
                     type="number"
                     inputProps={{
@@ -167,11 +165,9 @@ export default function Cart() {
                     const updatedCart = [...userCart];
                     updatedCart.splice(index, 1);
                     setUserCart(updatedCart);
-                    axios
-                      .patch("http://localhost:3000/cart", updatedCart)
-                      .then((res) => {
-                        setUser(res.data);
-                      });
+                    apiClient.patch("/cart", updatedCart).then((res) => {
+                      setUser(res.data);
+                    });
                   }}
                 >
                   <CancelIcon></CancelIcon>
@@ -221,11 +217,9 @@ export default function Cart() {
                   onClick={() => {
                     const updatedCart = [];
                     setUserCart(updatedCart);
-                    axios
-                      .patch("http://localhost:3000/cart", updatedCart)
-                      .then((res) => {
-                        setUser(res.data);
-                      });
+                    apiClient.patch("/cart", updatedCart).then((res) => {
+                      setUser(res.data);
+                    });
                     navigate("/");
                   }}
                   variant="contained"

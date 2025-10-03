@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Box,
   Paper,
@@ -46,8 +46,8 @@ export default function AddProduct() {
     const axiosData = async () => {
       try {
         const [categoriesRes, brandsRes] = await Promise.all([
-          axios.get("http://localhost:3000/categories"),
-          axios.get("http://localhost:3000/brands"),
+          apiClient.get("/categories"),
+          apiClient.get("/brands"),
         ]);
 
         setCategories(categoriesRes.data);
@@ -86,8 +86,8 @@ export default function AddProduct() {
       formData.append("images", file);
     });
 
-    await axios
-      .post("http://localhost:3000/products", formData, {
+    await apiClient
+      .post("/products", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

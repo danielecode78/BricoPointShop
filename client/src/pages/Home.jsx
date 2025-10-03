@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Typography,
   Grid,
@@ -31,7 +31,7 @@ export default function Home() {
       try {
         const params = search ? { search } : subcategory ? { subcategory } : {};
 
-        const res = await axios.get("http://localhost:3000/products", {
+        const res = await apiClient.get("/products", {
           params,
         });
         setProducts(res.data);

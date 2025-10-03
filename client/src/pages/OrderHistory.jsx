@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Typography,
   Grid,
@@ -41,7 +41,7 @@ export default function OrderHistory() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/orders");
+        const res = await apiClient.get("/orders");
         const sortedData = [...res.data].sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
         );
@@ -77,7 +77,7 @@ export default function OrderHistory() {
   const cancelOrder = (id) => {
     const fetchCancel = async () => {
       try {
-        const res = await axios.patch("http://localhost:3000/order", {
+        const res = await apiClient.patch("/order", {
           orderId: id,
           status: "annullato",
         });

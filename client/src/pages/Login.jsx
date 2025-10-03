@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import { Paper, TextField, Typography, Button, Grid } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ export default function Login() {
 
   const loginSubmit = async (data) => {
     try {
-      const res = await axios.post("http://localhost:3000/login", data);
+      const res = await apiClient.post("/login", data);
       setUser(res.data.user);
       navigate("/");
       toast.success("Login effettuato con successo!");

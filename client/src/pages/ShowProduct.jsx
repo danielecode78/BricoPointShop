@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Typography,
   Grid,
@@ -31,8 +31,8 @@ export default function ShowProduct() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/product/${id}`)
+    apiClient
+      .get(`/product/${id}`)
       .then((res) => {
         setProduct(res.data);
       })
@@ -66,8 +66,8 @@ export default function ShowProduct() {
   const updatedAt = formattedDate(product.updatedAt);
 
   const deleteProduct = () => {
-    axios
-      .delete(`http://localhost:3000/product/${id}`)
+    apiClient
+      .delete(`/product/${id}`)
       .then((res) => {
         toast.success("Prodotto eliminato!");
         navigate("/");
@@ -88,8 +88,8 @@ export default function ShowProduct() {
       toast.error("Devi fare il login");
       return;
     }
-    axios
-      .post("http://localhost:3000/addToCart", {
+    apiClient
+      .post("/addToCart", {
         productId: id,
         quantity,
       })

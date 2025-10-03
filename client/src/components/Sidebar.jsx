@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import { useState, useEffect } from "react";
 import {
   Drawer,
@@ -28,8 +28,8 @@ export default function Sidebar({ open, onClose }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/categories")
+    apiClient
+      .get("/categories")
       .then((res) => {
         setCategories(res.data);
       })

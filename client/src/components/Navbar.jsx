@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   AppBar,
   Box,
@@ -53,7 +53,7 @@ export default function Navbar({ onMenuClick }) {
     navigate(path);
   };
   const logout = async () => {
-    await axios.post("http://localhost:3000/logout");
+    await apiClient.post("/logout");
     setUser(null);
     toast.success("Logout effettuato con successo!");
   };
@@ -64,7 +64,7 @@ export default function Navbar({ onMenuClick }) {
       timer.current = setTimeout(() => {
         const fetchProducts = async () => {
           try {
-            const res = await axios.get("http://localhost:3000/products", {
+            const res = await apiClient.get("/products", {
               params: { search: inputValue },
             });
             setProducts(res.data);

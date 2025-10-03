@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Typography,
   Grid,
@@ -33,7 +33,7 @@ export default function Order() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/user");
+        const res = await apiClient.get("/user");
         setDataUser(res.data);
 
         const cartItems = res.data.cart || [];
@@ -76,11 +76,11 @@ export default function Order() {
   const values = watch();
 
   const submitForm = async (data) => {
-    await axios
-      .post("http://localhost:3000/order", data)
+    await apiClient
+      .post("/order", data)
       .then((res) => {
         const resetCart = [];
-        axios.patch("http://localhost:3000/cart", resetCart).then((res) => {
+        apiClient.patch("/cart", resetCart).then((res) => {
           setUser(res.data);
         });
         navigate("/");

@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext();
@@ -8,8 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3000/loggedIn")
+    apiClient
+      .get("/loggedIn")
       .then((res) => {
         if (res.data.user) {
           setUser(res.data.user);

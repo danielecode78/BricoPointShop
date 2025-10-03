@@ -1,5 +1,5 @@
-import axios from "axios";
-axios.defaults.withCredentials = true;
+import apiClient from "../utils/apiClient";
+
 import {
   Box,
   Paper,
@@ -62,8 +62,8 @@ export default function Register() {
     );
     // const { verifyPassword, gdprConsent, ...cleanData } = data;
 
-    // await axios
-    //   .post("http://localhost:3000/register", cleanData)
+    // await apiClient
+    //   .post("/register", cleanData)
     //   .then((res) => {
     //     setUser(res.data.user);
     //     navigate("/");
